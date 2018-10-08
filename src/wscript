@@ -1,0 +1,16 @@
+# -*- mode: python -*-
+
+import sys
+
+def options(opt):
+    opt.load('compiler_cxx')
+
+def configure(ctx_top):
+    if sys.platform.startswith('linux'):
+        ctx_top.env.INCLUDES=['/usr/local/include/']
+    elif sys.platform.startswith('win32'):
+        ctx_top.env.INCLUDES=[r'\\\\network\\path\\include\\']
+    else:
+        raise Exception("Unknown platform")
+    ctx_top.msg('top-level, INCLUDES', ctx_top.env.INCLUDES)
+    ctx_top.recurse('distro')
